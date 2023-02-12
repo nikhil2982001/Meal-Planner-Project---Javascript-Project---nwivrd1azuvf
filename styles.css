@@ -1,15 +1,12 @@
-#first{
-    background-color: #ed624f
-}
-.logo-image{
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-top: -6px;
-}
-h1{
-    position: relative;
+nav{
+     color:#e6e6fa;
+    display: flex;
+    justify-content:space-between;
+    font-size: 24px;
+    font-family: "Tangerine", cursive;
+    background-color: #ed624f;
+    text-decoration: underline; 
+    height: 100%;
 }
 .info{
     border-radius: 10px;
@@ -21,27 +18,35 @@ h1{
 
     
 }
+
 #height{
     margin: 2%;
+    border-color: red;
      
 }
 #weight{
     margin: 2%;
+    border-color: red;
 }
 #age{
     margin: 2%;
+    border-color: red;
 }
 #gender{
     margin: 1.5%;
     box-sizing: border-box;
+    border-color: red;
 }
 #activity{
     margin: 1.5%;
     box-sizing: border-box;
+    border-color: red;
 }
 #card{
     display: flex;
     justify-content: space-evenly;
+    overflow: hidden;
+    min-height: 285px;
 }
 img{
     width: 100px;
@@ -59,25 +64,22 @@ img{
     list-style: none;
     padding: 0px 20px;
     overflow: auto;
+    
 }
 #steps{
     flex: 1 1 30%;
     list-style: none;
     padding: 0px 20px;
     overflow: auto;
+    
 }
 #equipment{
     flex: 1 1 30%;
     list-style: none;
     padding: 0px 20px;
     overflow: auto;
+
 }
-footer{
-    background-color: black;
-    color: antiquewhite;
-    text-align: center;
-    height: 70px;
-}
-#breakfast-name{
-    overflow: hidden;
+#generate-meal-button{
+    border-color: red;
 }
