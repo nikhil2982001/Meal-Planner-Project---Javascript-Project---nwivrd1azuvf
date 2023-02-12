@@ -1,7 +1,51 @@
+
+(async function randomMeals() {
+    let calorie = (() => Math.floor(Math.random() * 990) + 10)() // 10 - 1000;
+    let day = (() => Math.floor(Math.random() * 6))()
+    let today = ""
+    switch(day){
+        case 0: today = "sunday"; break;
+        case 1: today = "monday"; break;
+        case 2: today = "tuesday"; break;
+        case 3: today = "wednesday"; break;
+        case 4: today = "thursday"; break;
+        case 5: today = "friday"; break;
+        case 6: today = "saturday"; break;
+    }
+    const query = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=99153a1775d04de695f4432c22b293d4&timeFrame=week&targetCalories=${calorie}`)
+    const data = await query.json();
+    let calories = (data.week[`${today}`]['nutrients']['calories'])
+    meals = data.week[`${today}`]['meals']
+    console.log(meals);
+    meals.forEach((meal,index) => {
+        let img = `https://spoonacular.com/recipeImages/${meal.id}-556x370.${meal.imageType}`
+        if(index === 0) {
+            const container = document.querySelector('#breakfast-cards')
+            container.querySelector('img').src = img;
+            container.querySelector('.calories').textContent = calories;
+            container.querySelector('button').onclick = `breakFastRecipe(${meal.id})`;
+        }
+        if(index === 1){
+            const container = document.querySelector('#lunch-cards')
+            container.querySelector('img').src = img;
+            container.querySelector('.calories').textContent = calories;
+            container.querySelector('button').onclick = `lunchRecipe(${meal.id})`;
+        }
+        if(index === 2){
+            const container = document.querySelector('#dinner-cards')
+            container.querySelector('img').src = img;
+            container.querySelector('.calories').textContent = calories;
+            // container.querySelector('button').setAttribute("onclick",`dinnerRecipe(${meal.id})`);
+            // console.log("look here", container.querySelector('button'),`dinnerRecipe(${meal.id})`)
+            // container.querySelector('button').onclick = dinnerRecipe(meal.id)
+        }
+    })
+
+})();
 document.querySelector('#generate-meal-button').addEventListener('click', (e) => {
     e.preventDefault();
-     var bmr;
-     var calorie;
+     let bmr;
+     let calorie;
      const height=document.getElementById("height").value;
      const weight=document.getElementById("weight").value;
      const age=document.getElementById("age").value;
