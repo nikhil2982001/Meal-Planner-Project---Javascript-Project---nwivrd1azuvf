@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>www.meal_planner.com</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+    
+            <div class="logo-image">
+                
+                  <img src="spork-negative-spoon-and-fork-restaurant-circle-vector-icon-symbol-graphic-logo-WHH28C.jpg" class="img-fluid">
+                  
+                      Meal Planner
+            </div>
+    
+    </nav>
+    <div class="info">
+        <form>
+            <input type="number" id="height" placeholder="Height"> 
+            <input type="number" id="weight"  placeholder="Weight"> 
+            <input type="number" id="age" placeholder="Age">  <br>
+            
+            <select name="gender"id="gender" size="1">
+                <option value="male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <select name="activity"id="activity">
+                <option value="light">Light</option>
+                <option value="moderate">Moderate</option>
+                <option value="active">Active</option>
+            </select>
+               <br>
+            <button type ="submit" id="generate-meal-button">Generate meals</button> 
+            <input type="reset" value="RESET" id="reset_it"/> 
+            
+        </form>
+     </div>
+     <br>
+     <section id="meals" >
+    <div id="card">
+        <div class="cards">
+            <h3>BREAKFAST</h3>
+            <div id="breakfast-cards">
+                <img id="breakfast-image" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-title" id="breakfast-name"></p>
+                    <p class="card-text">Calories - <span class="calories">0</span></p>
+                    <button class="button btn2" id="breakfast-btn" onclick="breakFastRecipe()">Get Recipe</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="cards">
+            <h3>LUNCH</h3>
+            <div id="lunch-cards">
+                <img id="lunch-image" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-title" id="lunch-name"></p>
+                    <p class="card-text">Calories - <span class="calories">0</span></p>
+                    <button class="button btn2" id="lunch-btn" onclick="lunchRecipe()">Get Recipe</button>
+                </div>
+            </div>
+        </div>
+        <div class="cards">
+            <h3>DINNER</h3>
+            <div id="dinner-cards">
+                <img id="dinner-image" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-title" id="dinner-name"></p>
+                    <p class="card-text">Calories - <span class="calories">0</span></p>
+                    <button class="button btn2" id="dinner-btn" onclick="dinnerRecipe()">Get Recipe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="recepi" >
+
+    <ul class="nav nav-tabs" id="recepi-list" role="tablist" style="background-color: #ee624f;">
+        <li  class="nav-item">
+            <h3>Ingredients</h3>
+            <div id="list-of-ingredients">
+
+            </div>
+        </li>
+        <li  class="nav-item">
+           <h3>Steps</h3>
+           <div id="steps">
+
+           </div>
+        </li>
+        <li  class="nav-item">
+            <h3>Equipment</h3>
+            <div id="equipment">
+                
+            </div>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent" style="background-color: #fff5d0;">
+        <div class="tab-pane active" id="ingredients" role="tabpanel">
+            <ul  type="circle"></ul>
+        </div>
+        <div class="tab-pane" id="steps" role="tabpanel">
+            <ol id="steps"></ol>
+
+        </div>
+        <div class="tab-pane" id="equipment" role="tabpanel">
+            <ol id="equip"></ol>
+      
+        </div>
+    </div>
+</section>
+
+
+     <script src="main.js"></script>
+</body>
+
+</html>
