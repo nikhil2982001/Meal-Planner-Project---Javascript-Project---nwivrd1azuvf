@@ -1,0 +1,85 @@
+nav{
+     color:#e6e6fa;
+    display: flex;
+    justify-content:space-between;
+    font-size: 24px;
+    font-family: "Tangerine", cursive;
+    background-color: #ed624f;
+    text-decoration: underline; 
+    height: 100%;
+}
+.info{
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+     flex-direction: column;
+     flex-wrap: wrap;
+     justify-content: space-evenly;
+
+    
+}
+
+#height{
+    margin: 2%;
+    border-color: red;
+     
+}
+#weight{
+    margin: 2%;
+    border-color: red;
+}
+#age{
+    margin: 2%;
+    border-color: red;
+}
+#gender{
+    margin: 1.5%;
+    box-sizing: border-box;
+    border-color: red;
+}
+#activity{
+    margin: 1.5%;
+    box-sizing: border-box;
+    border-color: red;
+}
+#card{
+    display: flex;
+    justify-content: space-evenly;
+    overflow: hidden;
+    min-height: 285px;
+}
+img{
+    width: 100px;
+}
+#recepi{
+    height: 100px;
+    display: block;
+}
+#recepi-list{
+    height: auto
+    
+}
+#list-of-ingredients{
+    flex: 1 1 30%;
+    list-style: none;
+    padding: 0px 20px;
+    overflow: auto;
+    
+}
+#steps{
+    flex: 1 1 30%;
+    list-style: none;
+    padding: 0px 20px;
+    overflow: auto;
+    
+}
+#equipment{
+    flex: 1 1 30%;
+    list-style: none;
+    padding: 0px 20px;
+    overflow: auto;
+
+}
+#generate-meal-button{
+    border-color: red;
+}
