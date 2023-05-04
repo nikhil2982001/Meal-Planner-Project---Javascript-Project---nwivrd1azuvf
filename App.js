@@ -139,9 +139,7 @@ document.querySelector('#generate-meal-button').addEventListener('click', (e) =>
     
     
 })
-function fun(){
-    document.getElementById("reset_it").reset()
-}
+
  
 
 function dataFetch(id) {
