@@ -158,7 +158,7 @@ function dataFetch(id) {
                 }
             }
 
-            // document.getElementById("list-of-ingredients").innerHTML = "";
+             document.getElementById("list-of-ingredients").innerHTML = "";
             for (item of data.extendedIngredients) {
                 var quantity = item.amount + " " + item.unit
                 if (item.nameClean != null) {
@@ -169,7 +169,7 @@ function dataFetch(id) {
 
             }
 
-
+            document.getElementById("equipment").innerHTML ="";
             for (item of data.analyzedInstructions) {
                 console.log(item)
                 for (i of item.steps) {
