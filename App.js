@@ -213,3 +213,7 @@ function ingredientsShow(name,quantity){
 function equipment(equip){
     document.querySelector('#equipment').insertAdjacentHTML('beforeend', `<p class="equipment">${equip}</p>`)
 }
+const titleElement = document.querySelector(".img-fluid");
+titleElement.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
