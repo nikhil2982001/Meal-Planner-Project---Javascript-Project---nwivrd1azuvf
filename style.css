@@ -92,4 +92,8 @@ img{
 }
 #generate-meal-button{
     border-color: red;
+      border-radius: 10px;
+       padding :6px;
+    color: antiquewhite;
+    background-color: #ed624f;
 }
