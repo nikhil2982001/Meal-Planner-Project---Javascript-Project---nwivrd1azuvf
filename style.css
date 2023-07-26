@@ -22,25 +22,35 @@ nav{
 #height{
     margin: 2%;
     border-color: red;
+     padding: 8px;
+    text-align: center;
      
 }
 #weight{
     margin: 2%;
     border-color: red;
+     padding: 8px;
+    text-align: center;
 }
 #age{
     margin: 2%;
     border-color: red;
+     padding: 8px;
+    text-align: center;
 }
 #gender{
     margin: 1.5%;
     box-sizing: border-box;
     border-color: red;
+     padding: 8px;
+    text-align: center;
 }
 #activity{
     margin: 1.5%;
     box-sizing: border-box;
     border-color: red;
+     padding: 8px;
+    text-align: center;
 }
 #card{
     display: flex;
