@@ -20,18 +20,20 @@
     </nav>
     <div class="info">
         <form>
-            <input type="number" id="height" placeholder="Height"> 
-            <input type="number" id="weight"  placeholder="Weight"> 
-            <input type="number" id="age" placeholder="Age">  <br>
+            <input type="number" id="height" placeholder="Height in cm "> 
+            <input type="number" id="weight"  placeholder="Weight in kg"> 
+            <input type="number" id="age" placeholder="Age in years">  <br>
             
             <select name="gender"id="gender" size="1">
+                 <option >Select Gender</option>
                 <option value="male">Male</option>
                 <option value="Female">Female</option>
             </select>
             <select name="activity"id="activity">
-                <option value="light">Light</option>
-                <option value="moderate">Moderate</option>
-                <option value="active">Active</option>
+                 <option >Select Activity Level</option>
+                <option value="light">Light(Exercise 1-3 days/week)</option>
+                <option value="moderate">Moderate(Exercise 3-5 days/week)</option>
+                <option value="active">Active(Exercise 5-7 days/week)</option>
             </select>
                <br>
             <button type ="submit" id="generate-meal-button">Generate meals</button> 
