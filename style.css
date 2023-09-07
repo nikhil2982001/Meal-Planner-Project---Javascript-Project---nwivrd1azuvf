@@ -8,7 +8,6 @@ nav{
     font-size: 24px;
     font-family: "Tangerine", cursive;
     background-color: #ed624f;
-    text-decoration: underline; 
     height: 100%;
 }
 .info{
@@ -100,3 +99,4 @@ img{
     color: antiquewhite;
     background-color: #ed624f;
 }
+
