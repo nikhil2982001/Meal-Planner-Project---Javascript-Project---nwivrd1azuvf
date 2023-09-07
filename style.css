@@ -78,6 +78,7 @@ input:-ms-input-placeholder {
 }
 img{
     width: 100px;
+    cursor: pointer;
 }
 #recepi{
     height: 100px;
@@ -126,5 +127,6 @@ img{
   background-color: #ed624f;
   font-weight: 700;
 }
+
 
 
