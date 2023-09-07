@@ -20,6 +20,18 @@ nav{
 
     
 }
+input::-webkit-input-placeholder {
+    color: red;
+    font-weight: bold;
+}
+input:-moz-placeholder {
+    color: red;
+    font-weight: bold;
+}
+input:-ms-input-placeholder {
+    color: red;
+    font-weight: bold;
+}
 
 #height{
     margin: 2%;
@@ -46,6 +58,8 @@ nav{
     border-color: red;
      padding: 8px;
     text-align: center;
+     font-weight: 700;
+    color: red;
 }
 #activity{
     margin: 1.5%;
@@ -53,6 +67,8 @@ nav{
     border-color: red;
      padding: 8px;
     text-align: center;
+     font-weight: 700;
+    color: red;
 }
 #card{
     display: flex;
@@ -98,5 +114,17 @@ img{
        padding :6px;
     color: antiquewhite;
     background-color: #ed624f;
+    cursor:pointer;
+    font-weight:700;
 }
+#breakfast-btn, #lunch-btn, #dinner-btn{
+    cursor: pointer;
+    border-color: red;
+    border-radius: 10px;
+     padding :6px;
+  color: antiquewhite;
+  background-color: #ed624f;
+  font-weight: 700;
+}
+
 
