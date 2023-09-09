@@ -1,219 +1,232 @@
+const card = document.getElementById("meals");
+const recipe = document.getElementById("recepi")
+const calories = document.querySelectorAll(".calories")
+const ingre=document.getElementById("ingredients-tab");
+const step=document.getElementById("step-tab");
+const equ=document.getElementById("equipment-tab");
+const myform = document.getElementById('form');
+const ingre_li=document.getElementById("ingredients");
+const step_li=document.getElementById("step");
+const equip_li=document.getElementById("equipment")
+  ingre_li.style.color='#000000';
+  step_li.style.color='#000000';
+  equip_li.style.color='#000000';
+var calorie;
+var breakfastId, lunchId, dinnerId;
+document.getElementById("ingredients-tab").style.backgroundColor= "orangered";
+document.getElementById("ingredients-tab").style.color= "white";
+document.getElementById("equipment-tab").style.color= "orangered";
+document.getElementById("step-tab").style.color= "orangered"
+function change1() {
+    document.getElementById("ingredients-tab").style.backgroundColor= "orangered";
+    document.getElementById("ingredients-tab").style.color= "white";
+    document.getElementById("step-tab").style.backgroundColor= "rgb(232, 224, 224)";
+    document.getElementById("step-tab").style.color= "orangered"
+    document.getElementById("equipment-tab").style.backgroundColor= "rgb(232, 224, 224)";
+    document.getElementById("equipment-tab").style.color= "orangered";
+  }
+  function change2() {
+    document.getElementById("step-tab").style.backgroundColor= "orangered";
+    document.getElementById("step-tab").style.color= "white";
+    document.getElementById("ingredients-tab").style.backgroundColor= "rgb(232, 224, 224)";
+    document.getElementById("ingredients-tab").style.color= "orangered";
+    document.getElementById("equipment-tab").style.backgroundColor= "rgb(232, 224, 224)";
+    document.getElementById("equipment-tab").style.color= "orangered";
+  }
+  function change3() {
+    document.getElementById("equipment-tab").style.backgroundColor= "orangered";
+    document.getElementById("equipment-tab").style.color= "white";
+    document.getElementById("ingredients-tab").style.backgroundColor= "rgb(232, 224, 224)";
+    document.getElementById("ingredients-tab").style.color= "orangered";
+    document.getElementById("step-tab").style.backgroundColor= "rgb(232, 224, 224)";
+    document.getElementById("step-tab").style.color= "orangered";
+  }
 
-(async function randomMeals() {
-    let calorie = (() => Math.floor(Math.random() * 990) + 10)() // 10 - 1000;
-    let day = (() => Math.floor(Math.random() * 6))()
-    let today = ""
-    switch(day){
-        case 0: today = "sunday"; break;
-        case 1: today = "monday"; break;
-        case 2: today = "tuesday"; break;
-        case 3: today = "wednesday"; break;
-        case 4: today = "thursday"; break;
-        case 5: today = "friday"; break;
-        case 6: today = "saturday"; break;
-    }
-    const query = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=99153a1775d04de695f4432c22b293d4&timeFrame=week&targetCalories=${calorie}`)
-    const data = await query.json();
-    let calories = (data.week[`${today}`]['nutrients']['calories'])
-    meals = data.week[`${today}`]['meals']
-    console.log(meals);
-    meals.forEach((meal,index) => {
-        let img = `https://spoonacular.com/recipeImages/${meal.id}-556x370.${meal.imageType}`
-        if(index === 0) {
-            const container = document.querySelector('#breakfast-cards')
-            container.querySelector('img').src = img;
-            container.querySelector('.calories').textContent = calories;
-            container.querySelector('button').onclick = `breakFastRecipe(${meal.id})`;
-        }
-        if(index === 1){
-            const container = document.querySelector('#lunch-cards')
-            container.querySelector('img').src = img;
-            container.querySelector('.calories').textContent = calories;
-            container.querySelector('button').onclick = `lunchRecipe(${meal.id})`;
-        }
-        if(index === 2){
-            const container = document.querySelector('#dinner-cards')
-            container.querySelector('img').src = img;
-            container.querySelector('.calories').textContent = calories;
-            // container.querySelector('button').setAttribute("onclick",`dinnerRecipe(${meal.id})`);
-            // console.log("look here", container.querySelector('button'),`dinnerRecipe(${meal.id})`)
-            // container.querySelector('button').onclick = dinnerRecipe(meal.id)
-        }
-    })
-
-})();
-
-document.querySelector('#generate-meal-button').addEventListener('click', (e) => {
-    e.preventDefault();
-     let bmr;
-     let calorie;
-     const height=document.getElementById("height").value;
-     const weight=document.getElementById("weight").value;
-     const age=document.getElementById("age").value;
-     const gender=document.getElementById("gender").value;
-     const activity=document.getElementById("activity").value;
-     if (height== "" || weight==""||age=="")
-{
-      alert("Please input a Value");
-        return false;
+function checkData() {
+  let height = document.getElementById("height").value;
+  let weight = document.getElementById("weight").value;
+  let age = document.getElementById("age").value;
+  let gender = document.getElementById("gender").value;
+  let activity = document.getElementById("activity").value;
+  let mealsBtn = document.getElementById("mealsbtn");
+  
+  if (height !== "" && weight !== "" && age !== "" && gender !== "other" && activity !== "other") 
+  {
+    mealsBtn.disabled = false;
+    mealsBtn.classList.add("enabled");
+    mealsBtn.classList.remove("disabled");
+  } 
+  else {
+    mealsBtn.disabled = true;
+    mealsBtn.classList.add("disabled");
+    mealsBtn.classList.remove("enabled");
+  }
 }
-     else if(height!=""&& weight!=""&& age!="" ){
-        if(gender==="male"){
-            bmr=66.47 + (13.75 * weight ) + (5.003 * height ) - (6.755 * age); 
-        }
-        else if(gender==="Female"){
-            bmr=655.1 + (9.563 * weight ) + (1.850 * height ) - (4.676 * age );
-        }
-        else
-            return;
-        if(activity ==="light"){
-           calorie= bmr * 1.375;
-        }
-        else if(activity==="moderate"){
-          calorie= bmr * 1.55;
-        }
-        else if(activity==="active"){
-         calorie= bmr * 1.725;
-        }
-        else
-        return;
 
-        fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=99153a1775d04de695f4432c22b293d4&timeFrame=week&targetCalories=${calorie}`)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-        //handle data
-        console.log(data)
-        const date = new Date();
-        let today = ""
-        switch(date.getDay()){
-            case 0: today = "sunday"; break;
-            case 1: today = "monday"; break;
-            case 2: today = "tuesday"; break;
-            case 3: today = "wednesday"; break;
-            case 4: today = "thursday"; break;
-            case 5: today = "friday"; break;
-            case 6: today = "saturday"; break;
-        }
-        console.log(today);
-        let mealsEachDay = data.week[`${today}`]['meals'];
-        let calories = data.week[`${today}`]['nutrients']['calories'];
-        console.log(mealsEachDay, calories)
-
-        mealsEachDay.forEach((meal,index) => {
-            let img = `https://spoonacular.com/recipeImages/${meal.id}-556x370.${meal.imageType}`
-            const mealCard = `
-                <div data-id="${meal.id}" id="meal-${meal.id}" class="meal-card">
-                    <img class="meal-image" src=${img} alt="meal image" />
-                    <p class="meal-title">TITLE - ${meal.title}</p>
-                    <p class="calories">Calories - ${calories}</p>
-                    <button class="button btn2" id="breakfast-btn" onclick="dataFetch(${meal.id})">Get Recipe</button>
-                </div>
-            `
-            if(index === 0) {
-                const container = document.querySelector('#breakfast-cards')
-                while(container.firstChild){
-                    container.firstChild.remove();
-                }
-                container.insertAdjacentHTML('beforeend', mealCard);
-            }
-            if(index === 1){
-                const container = document.querySelector('#lunch-cards')
-                while(container.firstChild){
-                    container.firstChild.remove();
-                }
-                container.insertAdjacentHTML('beforeend', mealCard)
-            }
-            if(index === 2){
-                const container = document.querySelector('#dinner-cards')
-                while(container.firstChild){
-                    container.firstChild.remove();
-                }
-                container.insertAdjacentHTML('beforeend', mealCard)
-            }
-        })
-        })
-        
-    }
-    
-    
-})
-
+ const btn= document.getElementById('mealsbtn');
  
+ btn.addEventListener("click", calorieCal)
 
-function dataFetch(id) {
-    let equipmentArray = [];
+ function calorieCal(e) {
+    e.preventDefault();
+    var bmr;
+    var height = document.getElementById("height").value;
+    var weight = document.getElementById("weight").value;
+    var age = document.getElementById("age").value;
+    var activity = document.getElementById("activity").value;
+    var gender = document.getElementById("gender").value;
+      
+    if(height!="" && weight!="" && age!="" && activity!="other" && gender!="other")
+    {
+      if (gender === "male") {
+        bmr = 66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age)
+      }
+      else if (gender === "female"){
+        bmr = 655.1 + (9.563 * weight) + (1.850 * height) - (4.676 * age)
+      }
+      else
+      return;
+      if (activity === "light") {
+        calorie = bmr * 1.375;
+      }
+      else if (activity === "moderate") {
+        calorie = bmr * 1.55;
+      }
+      else if(activity === "active"){
+        calorie = bmr * 1.725;
+      }
+      getMealData();
+       myform.reset();
+      btn.disabled = true;
+      btn.classList.remove("enabled");
+  }
+  else
+  alert("Please Fill All Required Element");
+}
+
+function getMealData() {
     fetch(
-       `https://api.spoonacular.com/recipes/${id}/information?apiKey=99153a1775d04de695f4432c22b293d4&includeNutrition=false`)
+        `https://api.spoonacular.com/mealplanner/generate?apiKey=99153a1775d04de695f4432c22b293d4&timeFrame=day&targetCalories=${calorie}`
+    )
         .then((response) => response.json())
         .then((data) => {
+            setMealData(data);
+            card.style.display = "block";
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 
+function setMealData(data) {
+    setBreakFastData(data.meals[0]);
+    setLunchData(data.meals[1]);
+    setDinnerData(data.meals[2]);
+}
+
+
+function setBreakFastData(data) {
+    breakfastId = data.id;
+    const img = document.getElementById("breakfast-image");
+    img.src = "https://spoonacular.com/recipeImages/" + breakfastId + "-556x370." + data.imageType;
+    document.getElementById("breakfast-name").innerHTML = data.title;
+    calories[0].innerHTML = calorie.toFixed(2)
+}
+
+function setLunchData(data) {
+    lunchId = data.id;
+    const img = document.getElementById("lunch-image");
+    img.src = "https://spoonacular.com/recipeImages/" + lunchId + "-556x370." + data.imageType;
+    document.getElementById("lunch-name").innerHTML = data.title;
+    calories[1].innerHTML = calorie.toFixed(2)
+}
+
+function setDinnerData(data) {
+    dinnerId = data.id
+    const img = document.getElementById("dinner-image");
+    img.src = "https://spoonacular.com/recipeImages/" + dinnerId + "-556x370." + data.imageType;
+    document.getElementById("dinner-name").innerHTML = data.title;
+    calories[2].innerHTML = calorie.toFixed(2);
+}
+
+function breakFastRecipe(){
+    dataFetch(breakfastId)
+    recipe.style.display="block";
+}
+
+function lunchRecipe(){
+    dataFetch(lunchId)
+    recipe.style.display="block";
+}
+
+function dinnerRecipe(){
+    dataFetch(dinnerId)
+    recipe.style.display="block";
+}
+
+function dataFetch(id) {
+    var equipment = [];
+    fetch(
+        `https://api.spoonacular.com/recipes/${id}/information?apiKey=99153a1775d04de695f4432c22b293d4&includeNutrition=false`
+    )
+        .then((response) => response.json())
+        .then((data) => {
             document.getElementById("steps").innerHTML = ""
-            console.log(data)
-
             for (item of data.analyzedInstructions) {
                 for (i of item.steps) {
                     stepShow(i.step);
                 }
             }
-
-             document.getElementById("list-of-ingredients").innerHTML = "";
+            document.getElementById("list-of-ingredients").innerHTML = "";
             for (item of data.extendedIngredients) {
                 var quantity = item.amount + " " + item.unit
-                if (item.nameClean != null) {
-                    var name = item.nameClean.charAt(0).toUpperCase() + item.nameClean.slice(1);
+                if (item.nameClean != null){
+                    var name=item.nameClean.charAt(0).toUpperCase() + item.nameClean.slice(1);
                     ingredientsShow(name, quantity)
                 }
 
-
+                   
             }
 
-            document.getElementById("equipment").innerHTML ="";
+
             for (item of data.analyzedInstructions) {
-                console.log(item)
                 for (i of item.steps) {
                     for (j of i.equipment) {
-                        console.log(j.name);
-                        if (!equipmentArray.includes(j.name))
-                        equipmentArray.push(j.name);
+                        if (!equipment.includes(j.name))
+                            equipment.push(j.name);
                     }
                 }
             }
-            equipment(equipmentArray);
-
+            equipmentShow(equipment);
 
         })
         .catch((e) => {
             console.log(e);
         });
 }
-function breakFastRecipe(breakfastId) {
-    dataFetch(breakfastId)
-    recipe.style.display = "block";
+
+function ingredientsShow(name, quantity) {
+    const ul_list_of_ingredients= document.getElementById("list-of-ingredients");
+    const li_of_ingredients = document.createElement("li");
+    li_of_ingredients.innerText  = name + " - " + quantity;
+    ul_list_of_ingredients.appendChild(li_of_ingredients);
 }
 
-function lunchRecipe(lunchId) {
-    dataFetch(lunchId)
-    recipe.style.display = "block";
+function stepShow(step) {
+    const ol_of_steps = document.getElementById("steps")
+    const li_of_steps = document.createElement("li");
+    li_of_steps.innerText = step;
+    ol_of_steps.appendChild(li_of_steps);
 }
 
-function dinnerRecipe(dinnerId) {
-    dataFetch(dinnerId)
-    recipe.style.display = "block";
+function equipmentShow(equipment) {
+    const ul_equip = document.getElementById("equip")
+    ul_equip.innerHTML = ""
+    for (i of equipment) {
+        var temp=i.charAt(0).toUpperCase() + i.slice(1);;
+        const li_of_equip = document.createElement("li");
+        li_of_equip.innerText = temp;
+        ul_equip.appendChild(li_of_equip);
+    }
 }
 
-function stepShow(step){
-    document.querySelector('#steps').insertAdjacentHTML('beforeend', `<p class="recipe-steps">${step}</p>`)
-}
-function ingredientsShow(name,quantity){
-    console.log(document.querySelector('look here','#list-of-ingredients'));
-    document.querySelector('#list-of-ingredients').insertAdjacentHTML('beforeend', `<p class="ingredient">${name} ${quantity}</p>`)
-}
-function equipment(equip){
-    document.querySelector('#equipment').insertAdjacentHTML('beforeend', `<p class="equipment">${equip}</p>`)
-}
-const titleElement = document.querySelector(".img-fluid");
-titleElement.addEventListener("click", () => {
-    window.location.href = "index.html";
-});
