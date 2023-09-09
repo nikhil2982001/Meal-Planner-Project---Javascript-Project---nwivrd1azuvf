@@ -229,4 +229,9 @@ function equipmentShow(equipment) {
         ul_equip.appendChild(li_of_equip);
     }
 }
+const titleElement = document.querySelector(".nav-h");
+titleElement.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+
 
