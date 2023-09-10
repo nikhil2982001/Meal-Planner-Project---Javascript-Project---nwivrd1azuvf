@@ -1,3 +1,28 @@
+import { getAuth ,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js'
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBN_MVFsfI2BUj1f3VBHlBWSW7pSNddTJQ",
+    authDomain: "meal-planner-49300.firebaseapp.com",
+    projectId: "meal-planner-49300",
+    storageBucket: "meal-planner-49300.appspot.com",
+    messagingSenderId: "296800973746",
+    appId: "1:296800973746:web:9df0c58bdcad49d1edaaab",
+    measurementId: "G-C7P8KCK0BY"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const provider=new GoogleAuthProvider();
+  const auth=getAuth(app);
+
+
 const card = document.getElementById("meals");
 const recipe = document.getElementById("recepi")
 const calories = document.querySelectorAll(".calories")
@@ -233,5 +258,18 @@ const titleElement = document.querySelector(".nav-h");
 titleElement.addEventListener("click", () => {
     window.location.href = "index.html";
 });
+document.getElementById("log").addEventListener("click",loginGoogle)
+async function loginGoogle(){
+    try{
+    
+   const result=await signInWithPopup(auth,provider)
+  const user=result.user;
+  console.log(result)
+    }
+  catch(err){
+    console.log(err)
+  }
+}
+
 
 
