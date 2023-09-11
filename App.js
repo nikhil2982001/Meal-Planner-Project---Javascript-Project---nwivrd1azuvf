@@ -1,28 +1,4 @@
-import { getAuth ,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js'
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
-  
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBN_MVFsfI2BUj1f3VBHlBWSW7pSNddTJQ",
-    authDomain: "meal-planner-49300.firebaseapp.com",
-    projectId: "meal-planner-49300",
-    storageBucket: "meal-planner-49300.appspot.com",
-    messagingSenderId: "296800973746",
-    appId: "1:296800973746:web:9df0c58bdcad49d1edaaab",
-    measurementId: "G-C7P8KCK0BY"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const provider=new GoogleAuthProvider();
-  const auth=getAuth(app);
-
-
+import {loginGoogle, logout} from "./login.js";
 const card = document.getElementById("meals");
 const recipe = document.getElementById("recepi")
 const calories = document.querySelectorAll(".calories")
@@ -38,34 +14,45 @@ const equip_li=document.getElementById("equipment")
   equip_li.style.color='#000000';
 var calorie;
 var breakfastId, lunchId, dinnerId;
+// global varaible for logged in satatus
+localStorage.setItem("isUserLoggedIn", false);
+
 document.getElementById("ingredients-tab").style.backgroundColor= "orangered";
 document.getElementById("ingredients-tab").style.color= "white";
 document.getElementById("equipment-tab").style.color= "orangered";
 document.getElementById("step-tab").style.color= "orangered"
+document.getElementById("ingredients-tab").addEventListener("click",change1)
 function change1() {
-    document.getElementById("ingredients-tab").style.backgroundColor= "orangered";
-    document.getElementById("ingredients-tab").style.color= "white";
-    document.getElementById("step-tab").style.backgroundColor= "rgb(232, 224, 224)";
-    document.getElementById("step-tab").style.color= "orangered"
-    document.getElementById("equipment-tab").style.backgroundColor= "rgb(232, 224, 224)";
-    document.getElementById("equipment-tab").style.color= "orangered";
-  }
-  function change2() {
-    document.getElementById("step-tab").style.backgroundColor= "orangered";
-    document.getElementById("step-tab").style.color= "white";
-    document.getElementById("ingredients-tab").style.backgroundColor= "rgb(232, 224, 224)";
-    document.getElementById("ingredients-tab").style.color= "orangered";
-    document.getElementById("equipment-tab").style.backgroundColor= "rgb(232, 224, 224)";
-    document.getElementById("equipment-tab").style.color= "orangered";
-  }
-  function change3() {
-    document.getElementById("equipment-tab").style.backgroundColor= "orangered";
-    document.getElementById("equipment-tab").style.color= "white";
-    document.getElementById("ingredients-tab").style.backgroundColor= "rgb(232, 224, 224)";
-    document.getElementById("ingredients-tab").style.color= "orangered";
-    document.getElementById("step-tab").style.backgroundColor= "rgb(232, 224, 224)";
-    document.getElementById("step-tab").style.color= "orangered";
-  }
+  document.getElementById("ingredients-tab").style.backgroundColor= "orangered";
+  document.getElementById("ingredients-tab").style.color= "white";
+  document.getElementById("step-tab").style.backgroundColor= "rgb(232, 224, 224)";
+  document.getElementById("step-tab").style.color= "orangered"
+  document.getElementById("equipment-tab").style.backgroundColor= "rgb(232, 224, 224)";
+  document.getElementById("equipment-tab").style.color= "orangered";
+}
+document.getElementById("step-tab").addEventListener("click",change2)
+function change2() {
+  document.getElementById("step-tab").style.backgroundColor= "orangered";
+  document.getElementById("step-tab").style.color= "white";
+  document.getElementById("ingredients-tab").style.backgroundColor= "rgb(232, 224, 224)";
+  document.getElementById("ingredients-tab").style.color= "orangered";
+  document.getElementById("equipment-tab").style.backgroundColor= "rgb(232, 224, 224)";
+  document.getElementById("equipment-tab").style.color= "orangered";
+}
+
+document.getElementById("equipment-tab").addEventListener("click",change3)
+function change3() {
+  document.getElementById("equipment-tab").style.backgroundColor= "orangered";
+  document.getElementById("equipment-tab").style.color= "white";
+  document.getElementById("ingredients-tab").style.backgroundColor= "rgb(232, 224, 224)";
+  document.getElementById("ingredients-tab").style.color= "orangered";
+  document.getElementById("step-tab").style.backgroundColor= "rgb(232, 224, 224)";
+  document.getElementById("step-tab").style.color= "orangered";
+}
+
+document.getElementById("form").addEventListener("click",checkData)
+document.getElementById("gender").addEventListener("click",checkData)
+document.getElementById("activity").addEventListener("click",checkData)
 
 function checkData() {
   let height = document.getElementById("height").value;
@@ -80,6 +67,7 @@ function checkData() {
     mealsBtn.disabled = false;
     mealsBtn.classList.add("enabled");
     mealsBtn.classList.remove("disabled");
+    console.log("hello");
   } 
   else {
     mealsBtn.disabled = true;
@@ -94,6 +82,12 @@ function checkData() {
 
  function calorieCal(e) {
     e.preventDefault();
+    if(localStorage.getItem("isUserLoggedIn") === "true"){
+      console.log("user is logged in");
+    }else{
+      alert("Please Login First");
+      return;
+    }
     var bmr;
     var height = document.getElementById("height").value;
     var weight = document.getElementById("weight").value;
@@ -173,61 +167,61 @@ function setDinnerData(data) {
     document.getElementById("dinner-name").innerHTML = data.title;
     calories[2].innerHTML = calorie.toFixed(2);
 }
-
+document.getElementById("breakfast-btn").addEventListener("click", breakFastRecipe)
 function breakFastRecipe(){
     dataFetch(breakfastId)
     recipe.style.display="block";
+    console.log("breakfast");
 }
+document.getElementById("lunch-btn").addEventListener("click",  lunchRecipe)
 
 function lunchRecipe(){
     dataFetch(lunchId)
     recipe.style.display="block";
 }
-
+document.getElementById("dinner-btn").addEventListener("click", dinnerRecipe)
 function dinnerRecipe(){
     dataFetch(dinnerId)
     recipe.style.display="block";
 }
 
-function dataFetch(id) {
-    var equipment = [];
-    fetch(
-        `https://api.spoonacular.com/recipes/${id}/information?apiKey=99153a1775d04de695f4432c22b293d4&includeNutrition=false`
-    )
-        .then((response) => response.json())
-        .then((data) => {
-            document.getElementById("steps").innerHTML = ""
-            for (item of data.analyzedInstructions) {
-                for (i of item.steps) {
-                    stepShow(i.step);
-                }
-            }
-            document.getElementById("list-of-ingredients").innerHTML = "";
-            for (item of data.extendedIngredients) {
-                var quantity = item.amount + " " + item.unit
-                if (item.nameClean != null){
-                    var name=item.nameClean.charAt(0).toUpperCase() + item.nameClean.slice(1);
-                    ingredientsShow(name, quantity)
-                }
+async function dataFetch(id) {
+    try{
+      const response = await fetch(
+          `https://api.spoonacular.com/recipes/${id}/information?apiKey=99153a1775d04de695f4432c22b293d4&includeNutrition=false`
+      )
+      const data = await response.json();
+      // console.log(data, "data..............")
+      document.getElementById("steps").innerHTML = ""
+      const {analyzedInstructions} = data;
+      
+      analyzedInstructions.forEach((element) => {
+          element.steps.forEach((step) => {
+              stepShow(step.step);
+          });
+      });
 
-                   
-            }
+      document.getElementById("list-of-ingredients").innerHTML = "";
+      const {extendedIngredients} = data;
+      extendedIngredients.forEach((element) => {
+          var quantity = element.amount + " " + element.unit;
+          if (element.nameClean != null) {
+              var name = element.nameClean.charAt(0).toUpperCase() + element.nameClean.slice(1);
+              ingredientsShow(name, quantity);
+          }
+      });
 
-
-            for (item of data.analyzedInstructions) {
-                for (i of item.steps) {
-                    for (j of i.equipment) {
-                        if (!equipment.includes(j.name))
-                            equipment.push(j.name);
-                    }
-                }
-            }
-            equipmentShow(equipment);
-
-        })
-        .catch((e) => {
-            console.log(e);
-        });
+      const equipmentNames = data.analyzedInstructions.flatMap(instruction =>
+        instruction.steps.flatMap(step =>
+          step.equipment.map(equipment => equipment.name)
+        )
+      );
+      console.log(equipmentNames);
+      equipmentShow(equipmentNames);
+    }
+    catch(error){
+        console.log(error);
+    }
 }
 
 function ingredientsShow(name, quantity) {
@@ -247,29 +241,27 @@ function stepShow(step) {
 function equipmentShow(equipment) {
     const ul_equip = document.getElementById("equip")
     ul_equip.innerHTML = ""
-    for (i of equipment) {
-        var temp=i.charAt(0).toUpperCase() + i.slice(1);;
+    equipment.forEach((element) => {
+        element = element.charAt(0).toUpperCase() + element.slice(1);
         const li_of_equip = document.createElement("li");
-        li_of_equip.innerText = temp;
+        li_of_equip.innerText = element;
         ul_equip.appendChild(li_of_equip);
-    }
+    });
 }
 const titleElement = document.querySelector(".nav-h");
 titleElement.addEventListener("click", () => {
     window.location.href = "index.html";
 });
+
+
+// login functionality
 document.getElementById("log").addEventListener("click",loginGoogle)
-async function loginGoogle(){
-    try{
-    
-   const result=await signInWithPopup(auth,provider)
-  const user=result.user;
-  console.log(result)
-    }
-  catch(err){
-    console.log(err)
-  }
-}
+
+// logut functinality
+document.getElementById("logout-btn").addEventListener("click",logout)
+
+
+
 
 
 
