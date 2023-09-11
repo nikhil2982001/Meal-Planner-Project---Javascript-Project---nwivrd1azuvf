@@ -252,3 +252,17 @@ input[type=number] {
   display: none;
   visibility: hidden;
 }
+#log{
+  height: 30px;
+  background-color: blue;
+  color: aliceblue;
+}
+#logout-btn{
+  height: 30px;
+  background-color: blue;
+  color: aliceblue;
+}
+#user-name{
+  color: white;
+}
+
