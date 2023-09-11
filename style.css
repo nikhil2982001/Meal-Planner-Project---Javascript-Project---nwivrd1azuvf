@@ -32,7 +32,7 @@ nav{
     font-family: Cursive;
     text-decoration:underline;
     font-family:Copperplate, Papyrus, fantasy;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   .first{
@@ -85,7 +85,7 @@ input{
     border-radius: 15px;
     padding: 10px;
    background-color: white;
-  cursor:pointer;
+   cursor: pointer;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -129,9 +129,10 @@ input[type=number] {
 .card-title{
     width: 180px;
     height: 56px;
-    overflow: hidden;
+    overflow:hidden;
     position: relative;
-    text-overflow: clip;
+    text-overflow:clip;
+    white-space: nowrap;
 }
 .btn2{
   background-color:#ee634e;
@@ -247,8 +248,7 @@ input[type=number] {
   align-items: flex-start;
 }
 
-
-
-
-
-
+.hidden{
+  display: none;
+  visibility: hidden;
+}
