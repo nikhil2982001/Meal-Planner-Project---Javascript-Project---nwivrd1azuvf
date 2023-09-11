@@ -23,7 +23,7 @@ export async function loginGoogle(){
         let userInfoElem = document.getElementById("user-info");
         let userNameElem = document.getElementById("user-name");
         loginButtonElem.classList.add("hidden");
-        userNameElem.textContent = `Hello, ${user.displayName}`;
+        userNameElem.textContent = `${user.displayName}`;
         userInfoElem.classList.remove("hidden");
         console.log(result)
         // isUserLoggedIn = true;
@@ -47,3 +47,4 @@ export async function logout() {
         console.log("Error logging out");
     }
 }
+
