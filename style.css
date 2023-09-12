@@ -254,15 +254,16 @@ input[type=number] {
 }
 #log{
   height: 30px;
-  background-color: blue;
-  color: aliceblue;
+  background-color:white;
+  color: orangered;
 }
 #logout-btn{
   height: 30px;
-  background-color: blue;
-  color: aliceblue;
+  background-color:white;
+  color: orangered;
 }
 #user-name{
   color: white;
 }
+
 
